@@ -1,0 +1,48 @@
+{
+  "name": "flowpro-cli",
+  "version": "1.0.0",
+  "description": "A CLI tool for flowpro",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wyntonfranklin/flowpro-cli.git"
+  },
+  "keywords": [
+    "cli",
+    "nocode",
+    "drag",
+    "drop"
+  ],
+  "author": "wfranklin",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {
+    "fast-xml-parser": "^4.0.1",
+    "ftp": "^0.3.10",
+    "json-as-xlsx": "^2.3.10",
+    "markdown": "^0.5.0",
+    "moment": "^2.29.1",
+    "mssql": "^7.3.0",
+    "mv": "^2.1.1",
+    "mysql": "^2.18.1",
+    "nedb": "^1.8.0",
+    "node-cmd": "^5.0.0",
+    "nodemailer": "^6.7.2",
+    "open": "^8.4.0",
+    "open-file-explorer": "^1.0.2",
+    "pretty-print-json": "^1.2.3",
+    "read-excel-file": "^5.2.25",
+    "sound-play": "^1.1.0",
+    "sqlite": "^4.0.23",
+    "sqlite3": "^5.0.2",
+    "ssh2-sftp-client": "^7.2.2"
+  },
+  "bugs": {
+    "url": "https://github.com/wyntonfranklin/flowpro-cli/issues"
+  },
+  "homepage": "https://github.com/wyntonfranklin/flowpro-cli#readme"
+}
