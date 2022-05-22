@@ -2,6 +2,7 @@ const world = require("../helpers/world");
 const fs = require('fs');
 const logs = require("../helpers/logs");
 const UTILS = require("../helpers/utils");
+const fetch = require("cross-fetch")
 
 const mysqlHandler = require("../modules/sqlContainer");
 const commandHandler = require("../modules/commandContainer");
@@ -659,13 +660,13 @@ module.exports = {
         let messageType = UTILS.getPropertyValue(properties, 1, "success",false);
         if(UTILS.propertiesValidation(settings,"0!=")){
             if(messageType == "success"){
-         //       notificationHandler.success(message);
+                logs.sendToConsole("SUCCESS: " + message);
             }else if(messageType == "error"){
-            //    notificationHandler.error(message);
+                logs.sendToConsole("ERROR: " + message);
             }else if(messageType == "info"){
-            //    notificationHandler.info(message);
+                logs.sendToConsole("INFO: " + message);
             }else if(messageType == "warning"){
-             //   notificationHandler.warning(message);
+                logs.sendToConsole("WARNING: " + message);
             }
             cb(output);
         }

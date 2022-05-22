@@ -2,6 +2,7 @@ const engineFunctions = require("../functions/v1");
 const world = require("../helpers/world");
 const UTILS = require("../helpers/utils");
 const logs = require("../helpers/logs")
+const path = require("path");
 
 let outputResults;
 let blocksByPaths = [];
@@ -22,6 +23,29 @@ function exitsInArray(arr, value) {
 }
 
 
+function runFromFilePath(filename, output, cb){
+    if(filename !== null && filename != undefined){
+        var ext = path.extname(filename);
+        if(ext == '.flowpro'){
+            const buffer = fs.readFileSync(filename);
+            let fileData = JSON.parse(buffer.toString("utf8"));
+            runFlowPro(onRunClicked(fileData), output, function(res){
+                cb(res);
+            });
+        }
+    }
+}
+
+function runFlowPro(results, output, cb){
+    let paths = results.paths;
+    let pathsOutput = [];
+    if(output == undefined){
+        output = null;
+    }
+    recursiveBlockHandler( paths[0],0, output, function(resp){
+        cb(resp)
+    });
+}
 
 function getObjectAttributes(data){
     let output = null;
@@ -118,16 +142,7 @@ function showAlertDialog(properties, output){
     let buttonName = UTILS.getPropertyValue(properties, 2, "Click me", true);
     let buttonAction = UTILS.getPropertyValue(properties, 3, "Load Flowpro", false);
     let buttonProperties = UTILS.getPropertyValue(properties, 4, "", true);
-    /*
-    ipcRenderer.invoke('open-window','alert',
-        {
-            raw :  output,
-            message : message,
-            style : style,
-            button : buttonName,
-            action: buttonAction,
-            properties : buttonProperties
-        });*/
+    logs.sendToConsole(message);
 }
 
 function recursiveBlockHandler(blocks, nextIndex, output, cb){
@@ -157,7 +172,6 @@ function recursiveBlockHandler(blocks, nextIndex, output, cb){
                 let actionToTake = UTILS.getPropertyValue(actionProperties, 1, "", false);
                 if(actionToTake == "break"){
                     nextIndex =  blocks.length-1;
-                   // logs.sendToConsole(output);
                 }
             }
         }
@@ -177,18 +191,7 @@ function recursiveBlockHandler(blocks, nextIndex, output, cb){
             }else if(actionObject.action == "output_to_view"){
                 let viewId = UTILS.getPropertyValue(actionProperties,0, "", false);
                 let viewOption = UTILS.getPropertyValue(actionProperties,1, "overwrite", false);
-                let finalViewId = VIEW_PREFIX + viewId;
-                let myview = document.getElementById(finalViewId);
-                if(myview){
-                    if(viewOption == "overwrite"){
-                        myview.innerHTML =  output;
-                    }else{
-                        myview.innerHTML = myview.innerHTML + output;
-                    }
-                }else{
-                    logs.sendErrorToConsole(`View ${viewId} doesnt not exists`);
-                }
-                  logs.sendToConsole(output,"console");
+                logs.sendToConsole(output)
             }else if(actionObject.action == "action_alert_dialog"){
                 showAlertDialog(actionProperties, output);
             }
@@ -397,6 +400,7 @@ function screenOutput(properties, output){
     let screenTitle = UTILS.getPropertyValue(properties,0,"", true);
     let screenDescription = UTILS.getPropertyValue(properties, 1, "", true);
     let screenStyling = UTILS.getPropertyValue(properties, 2, "", false);
+    logs.sendToConsole(output);
     /* todo: fix
     ipcRenderer.invoke('open-window','screen',
         {
@@ -410,5 +414,6 @@ function screenOutput(properties, output){
 
 module.exports =  {
     onRunClicked : onRunClicked,
-    recursiveBlockHandler: recursiveBlockHandler
+    recursiveBlockHandler: recursiveBlockHandler,
+    runFlowPro : runFlowPro
 }

@@ -40,7 +40,7 @@ module.exports = {
     },
     addWorldVariable : function(key, value){
         if(reserveredWords.indexOf(key) != -1) {
-            logs.logger.info(`cannot assign (${key}). This is a reserved word.`);
+            logs.sendToConsole(`cannot assign (${key}). This is a reserved word.`);
         }else{
             this.getCurrentVariableScope()[key] = value;
         }

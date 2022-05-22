@@ -21,6 +21,7 @@
   "license": "MIT",
   "devDependencies": {},
   "dependencies": {
+    "cross-fetch": "^3.1.5",
     "fast-xml-parser": "^4.0.1",
     "ftp": "^0.3.10",
     "json-as-xlsx": "^2.3.10",

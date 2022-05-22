@@ -2,7 +2,7 @@ const path = require("path");
 
 
 function addToConsole(message){
-    console.log("NOTICE: " + message);
+    console.log(message);
 }
 
 
