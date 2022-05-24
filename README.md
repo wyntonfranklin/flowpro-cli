@@ -3,7 +3,7 @@ FlowPro for CLI
 
 ## Steps
 
-Install flowpro using npm
+Install flowpro using [npm](https://www.npmjs.com/package/flowpro-cli) 
 
 ```
 npm install -g flowpro-cli
@@ -12,7 +12,7 @@ npm install -g flowpro-cli
 Run using the flowpro command
 
 ```
-node index.js -f "path-to-flowpro-file"
+flowpro -f "path-to-flowpro-file"
 ```
 
 Command Line
